@@ -1,44 +1,31 @@
-> 一个小玩具，可以用来跳转到nexus mod页面
+# Nexus Mods 跳转器 - Node.js 版本
 
-# Nexus Mods 跳转器
+一个基于 Node.js 的 Nexus Mods 跳转工具，支持通过后端 API 获取最新游戏列表。
 
 起因是小黑盒很多人分享mod会给mod编号，需要手动替换网址，有这个就可以快那么一点点。
 
-使用了nexus的api，可以实时获取最新的游戏列表
+[![Node.js](https://img.shields.io/badge/Built%20with-Node.js-green.svg)]()
+[![Version](https://img.shields.io/badge/Version-v2.0-blue.svg)]()
 
-[![HTML](https://img.shields.io/badge/Built%20with-HTML%2FJS-orange.svg)]()
-[![Version](https://img.shields.io/badge/Version-v1.2-green.svg)]()
+## 安装和使用
 
-## API Key 设置
+### 快速开始
 
-### 获取 API Key
-1. 访问 [Nexus Mods 账户设置](https://www.nexusmods.com/users/myaccount?tab=api)
-2. 创建并复制 "Personal API Key"
-3. 在网页中点击 ⚙️ 图标配置
+1. **启动**:
+   手动执行：
+   ```bash
+   npm install
+   npm start
+   ```
 
-### 配置效果
-- **已配置** - 获取完整游戏列表（3900+ 游戏）
-- **未配置** - 使用备用列表 (200热门游戏)
+2. **配置 API Key**:
+   - 编辑 `.env` 文件
+   - 在 [Nexus Mods API 设置页面](https://www.nexusmods.com/users/myaccount?tab=api) 获取您的 Personal API Key
+   - 将 API Key 填入 `.env` 文件中的 `NEXUS_API_KEY=` 后面
 
-## 快速开始
+3. **访问应用**:
+   - 打开浏览器访问 `http://localhost:3000`
 
-直接打开 `ModJumper.html` 即可使用，无需安装或配置。
+## 许可证
 
-或者用[我的网页](https://loym.dev)
-
-## 版本更新
-
-### v1.1 (2024-10-01)
-- ✅ 新增 API Key 设置功能
-- ✅ 智能中英文搜索系统
-- ✅ 游戏映射表模块化
-- ✅ 24小时智能缓存机制
-- ✅ 现代化界面设计
-
----
-
-后续计划：
-- 整个小号让我的网页默认配置API Key
-- 制作一个分支将HTML文件和JS文件合并
-- 换个网页图标，优化css
-- 考虑部署到Github Pages上
+MIT License
