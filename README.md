@@ -5,11 +5,16 @@
 起因是小黑盒很多人分享mod会给mod编号，需要手动替换网址，有这个就可以快那么一点点。
 
 [![Node.js](https://img.shields.io/badge/Built%20with-Node.js-green.svg)]()
-[![Version](https://img.shields.io/badge/Version-v2.0-blue.svg)]()
+[![Version](https://img.shields.io/badge/Version-v1.1-blue.svg)]()
 
 ## 安装和使用
 
 ### 快速开始
+
+克隆nodejs分支：
+```
+git clone -b nodejs --single-branch https://github.com/llxo/nexusmodjumper.git
+```
 
 1. **启动**:
    手动执行：
