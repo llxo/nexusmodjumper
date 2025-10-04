@@ -660,13 +660,26 @@
             try {
                 showNotification(forceRefresh ? '正在刷新游戏列表...' : '正在加载游戏列表...', 'info');
 
-                // 通过 Netlify Functions 获取游戏列表
-                const response = await fetch('/.netlify/functions/games', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                let response;
+                
+                try {
+                    // 首先尝试主要的 Netlify Functions API
+                    response = await fetch('/.netlify/functions/games', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                } catch (mainApiError) {
+                    console.warn('主 API 失败，尝试备用 API:', mainApiError);
+                    // 如果主 API 失败，尝试备用 API
+                    response = await fetch('/.netlify/functions/games-backup', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                }
 
                 if (!response.ok) {
                     const errorData = await response.json();
