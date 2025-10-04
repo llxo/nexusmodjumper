@@ -22,7 +22,7 @@
 
 ## 快速开始
 
-直接打开 `ModJumper.html` 即可使用，无需安装或配置。
+直接打开 `index.html` 即可使用，无需安装或配置。
 
 或者用[我的网页](https://loym.dev)
 
