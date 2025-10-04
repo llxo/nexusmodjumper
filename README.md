@@ -24,7 +24,7 @@
 
 直接打开 `index.html` 即可使用，无需安装或配置。
 
-或者用[我的网页](https://loym.dev)
+或者用[我的网页](https://nmod.netlify.app)
 
 ## 版本更新
 
