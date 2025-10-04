@@ -59,7 +59,7 @@ app.get('/api/health', (req, res) => {
 
 // 主页面路由
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'ModJumper.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // 404 处理
