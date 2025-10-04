@@ -660,8 +660,8 @@
             try {
                 showNotification(forceRefresh ? '正在刷新游戏列表...' : '正在加载游戏列表...', 'info');
 
-                // 通过后端API获取游戏列表
-                const response = await fetch('/api/games', {
+                // 通过 Netlify Functions 获取游戏列表
+                const response = await fetch('/.netlify/functions/games', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
