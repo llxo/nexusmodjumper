@@ -632,15 +632,23 @@
                 
                 let response;
                 try {
+                    // 检测环境：本地开发 vs Netlify 部署
+                    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                    const apiEndpoint = isLocal ? '/api/games' : '/.netlify/functions/games';
+                    const backupEndpoint = isLocal ? '/api/games' : '/.netlify/functions/games-backup';
+                    
                     // 尝试主 API
-                    response = await fetch('/.netlify/functions/games', {
+                    response = await fetch(apiEndpoint, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
                 } catch (mainApiError) {
                     console.warn('主 API 失败，尝试备用 API:', mainApiError);
                     // 尝试备用 API
-                    response = await fetch('/.netlify/functions/games-backup', {
+                    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                    const backupEndpoint = isLocal ? '/api/games' : '/.netlify/functions/games-backup';
+                    
+                    response = await fetch(backupEndpoint, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
