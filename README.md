@@ -5,8 +5,7 @@
 起因是小黑盒很多人分享mod会给mod编号，需要手动替换网址，有这个就可以快那么一点点。
 
 [![Node.js](https://img.shields.io/badge/Built%20with-Node.js-green.svg)]()
-[![Version](https://img.shields.io/badge/Version-v1.2-green.svg)]()
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/llxo/nexusmodjumper&stack=cms&branch=nodejs)
+[![Version](https://img.shields.io/badge/Version-v1.3-green.svg)]()
 
 ## 🚀 快速部署
 
@@ -145,6 +144,10 @@ pm2 start server.js
 5. 打开 Pull Request
 
 ## 📝 更新日志
+
+### v1.3.0
+- ✅ 将前端改为cyber风格
+- ✅ 修复本地部署api请求报错
 
 ### v1.2.0
 - ✅ 添加 Netlify Functions 支持
