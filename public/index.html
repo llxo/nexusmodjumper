@@ -377,46 +377,60 @@
             h1 { font-size: 1.8em; }
         }
 
-        /* 鼠标轨迹效果 */
-        .cursor-trail {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9997;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--primary-color);
-            opacity: 1;
-            animation: trailFade 0.6s ease-out forwards;
-        }
-
-        .cursor-trail.secondary {
-            background: var(--secondary-color);
-            box-shadow: 0 0 15px var(--secondary-color), 0 0 30px var(--secondary-color);
-        }
-
-        @keyframes trailFade {
-            0% {
-                transform: scale(1);
+        /* 鼠标轨迹效果 - 仅桌面设备 */
+        @media (hover: hover) and (pointer: fine) {
+            .cursor-trail {
+                position: fixed;
+                pointer-events: none;
+                z-index: 9997;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--primary-color);
+                box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--primary-color);
                 opacity: 1;
+                animation: trailFade 0.6s ease-out forwards;
             }
-            100% {
-                transform: scale(0.3);
-                opacity: 0;
+
+            .cursor-trail.secondary {
+                background: var(--secondary-color);
+                box-shadow: 0 0 15px var(--secondary-color), 0 0 30px var(--secondary-color);
+            }
+
+            @keyframes trailFade {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0.3);
+                    opacity: 0;
+                }
+            }
+
+            /* 自定义光标 */
+            body {
+                cursor: none;
+            }
+
+            .custom-cursor {
+                position: fixed;
+                pointer-events: none;
+                z-index: 10000;
+                mix-blend-mode: difference;
+                display: block;
             }
         }
 
-        /* 自定义光标 */
-        body {
-            cursor: none;
-        }
-
-        .custom-cursor {
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: difference;
+        /* 移动设备隐藏自定义光标 */
+        @media (hover: none) or (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+            
+            .custom-cursor {
+                display: none !important;
+            }
         }
 
         .cursor-dot {
@@ -937,41 +951,49 @@
             }, 3000 + Math.random() * 5000);
         }
 
-        // 鼠标轨迹效果
-        let lastTrailTime = 0;
-        const trailDelay = 30; // 轨迹间隔（毫秒）
-        
-        document.addEventListener('mousemove', (e) => {
-            const currentTime = Date.now();
-            
-            // 更新自定义光标位置
-            const customCursor = document.getElementById('custom-cursor');
-            if (customCursor) {
-                customCursor.style.left = e.clientX + 'px';
-                customCursor.style.top = e.clientY + 'px';
-            }
-            
-            // 创建轨迹粒子
-            if (currentTime - lastTrailTime > trailDelay) {
-                createTrailParticle(e.clientX, e.clientY);
-                lastTrailTime = currentTime;
-            }
-        });
+        // 鼠标轨迹效果 - 仅桌面设备启用
+        function isDesktopDevice() {
+            return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        }
 
-        // 悬停效果
-        const hoverElements = document.querySelectorAll('a, button, input, .game-item, .top-icon');
-        const cursorRing = document.getElementById('cursor-ring');
-        
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                if (cursorRing) cursorRing.classList.add('hover');
+        if (isDesktopDevice()) {
+            let lastTrailTime = 0;
+            const trailDelay = 30; // 轨迹间隔（毫秒）
+            
+            document.addEventListener('mousemove', (e) => {
+                const currentTime = Date.now();
+                
+                // 更新自定义光标位置
+                const customCursor = document.getElementById('custom-cursor');
+                if (customCursor) {
+                    customCursor.style.left = e.clientX + 'px';
+                    customCursor.style.top = e.clientY + 'px';
+                }
+                
+                // 创建轨迹粒子
+                if (currentTime - lastTrailTime > trailDelay) {
+                    createTrailParticle(e.clientX, e.clientY);
+                    lastTrailTime = currentTime;
+                }
             });
-            el.addEventListener('mouseleave', () => {
-                if (cursorRing) cursorRing.classList.remove('hover');
+
+            // 悬停效果
+            const hoverElements = document.querySelectorAll('a, button, input, .game-item, .top-icon');
+            const cursorRing = document.getElementById('cursor-ring');
+            
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if (cursorRing) cursorRing.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if (cursorRing) cursorRing.classList.remove('hover');
+                });
             });
-        });
+        }
 
         function createTrailParticle(x, y) {
+            if (!isDesktopDevice()) return; // 移动设备直接返回
+            
             const trail = document.createElement('div');
             trail.className = Math.random() > 0.7 ? 'cursor-trail secondary' : 'cursor-trail';
             trail.style.left = x + 'px';
